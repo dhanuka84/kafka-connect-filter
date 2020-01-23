@@ -1,0 +1,28 @@
+{
+    "name": "test5-replicator",
+    "connector.class": "io.confluent.connect.replicator.ReplicatorSourceConnector",
+    "topic.regex": "mysql-(.*)",
+    "src.kafka.bootstrap.servers": "broker:29092",
+    "dest.kafka.bootstrap.servers": "broker:29092",
+    "src.zookeeper.connect": "zookeeper:2181",
+    "topic.rename.format": "Valid_${topic}",
+    "dest.zookeeper.connect": "zookeeper:2181",
+  
+    "src.key.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "src.value.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "dest.key.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "dest.value.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "key.converter.schemas.enable": "false",
+    "schema.ignore": "true",
+    "src.value.converter.schemas.enable": "false",
+    "src.key.converter.schemas.enable": "false",
+    "dest.value.converter.schemas.enable": "false",
+    "dest.key.converter.schemas.enable": "false",
+   
+      "transforms": "dropPrefix", 
+      "transforms.dropPrefix.type":"org.dhanuka.kafka.connect.smt.FilterRouterReplicator",
+      "transforms.dropPrefix.regex":"mysql-(.*)",
+      "transforms.dropPrefix.field":"HireID",
+      "transforms.dropPrefix.replacement":"Invalid"
+  }
